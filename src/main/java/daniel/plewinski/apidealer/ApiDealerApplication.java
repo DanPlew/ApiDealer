@@ -1,5 +1,6 @@
 package daniel.plewinski.apidealer;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import daniel.plewinski.apidealer.chucknorisjokes.database.entities.User;
 import daniel.plewinski.apidealer.chucknorisjokes.database.repositories.UserRepository;
 import daniel.plewinski.apidealer.chucknorisjokes.security.roles.UserRole;
@@ -31,8 +32,8 @@ public class ApiDealerApplication {
     @Bean
     public CommandLineRunner init(UserRepository userRepository, PasswordEncoder passwordEncoder){
         return args -> {
-            User user1 = new User("user", passwordEncoder.encode("password"), "user", UserRole.USER_ROLE);
-            User user2 = new User("admin", passwordEncoder.encode("password"), "admin", UserRole.ADMIN_ROLE);
+            User user1 = new User("user", passwordEncoder.encode("qwerty"), "user", UserRole.USER);
+            User user2 = new User("admin", passwordEncoder.encode("qwerty"), "admin", UserRole.ADMIN);
             userRepository.save(user1);
             userRepository.save(user2);
         };
@@ -46,5 +47,10 @@ public class ApiDealerApplication {
     @Bean
     public RestTemplate getRestTemplate(){
         return new RestTemplate();
+    }
+
+    @Bean
+    public ObjectMapper getObjectMapper(){
+        return new ObjectMapper();
     }
 }

@@ -13,6 +13,10 @@ public class CategoryDTO {
         this.name = name;
     }
 
+    public CategoryDTO(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

@@ -23,7 +23,7 @@ public class UserDetailsImp implements UserDetails {
         List<GrantedAuthority> authorityList = new ArrayList<>();
         authorityList.add(
                 new SimpleGrantedAuthority(
-                        this.user.getUserRole().toString()
+                        this.user.getUserRole().name()
                 ));
         return authorityList;
     }
@@ -33,8 +33,6 @@ public class UserDetailsImp implements UserDetails {
         return this.user.getPassword();
     }
 
-
-    // Will be here user name or login?
     @Override
     public String getUsername() {
         return this.user.getNickname();

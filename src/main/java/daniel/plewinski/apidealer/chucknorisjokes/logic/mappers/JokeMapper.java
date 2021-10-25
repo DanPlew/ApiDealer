@@ -20,7 +20,7 @@ public class JokeMapper implements MappingInterface<Joke, JokeDTO> {
 
     @Override
     public JokeDTO fromEntityToDto(Joke joke) {
-        if(joke == null)
+        if (joke == null)
             return null;
 
         return new JokeDTO(
@@ -37,14 +37,14 @@ public class JokeMapper implements MappingInterface<Joke, JokeDTO> {
 
     @Override
     public Joke fromDtoToEntity(JokeDTO jokeDTO) {
-        if(jokeDTO == null)
+        if (jokeDTO == null)
             return null;
 
         List<Category> categories = new ArrayList<>();
-        for(String category : jokeDTO.getCategories())
+        for (String category : jokeDTO.getCategories())
             categories.add(new Category(category));
 
-        Joke joke =  new Joke(
+        Joke joke = new Joke(
                 fromStringToLocalDateTime(jokeDTO.getCreated_at()),
                 fromStringToLocalDateTime(jokeDTO.getUpdated_at()),
                 LocalDateTime.now(),
@@ -60,7 +60,7 @@ public class JokeMapper implements MappingInterface<Joke, JokeDTO> {
 
     @Override
     public List<JokeDTO> fromEntityListToDtoList(List<Joke> jokes) {
-        if(jokes == null || jokes.isEmpty())
+        if (jokes == null || jokes.isEmpty())
             return null;
 
         List<JokeDTO> dtoJokeList = new ArrayList<>();
@@ -72,7 +72,7 @@ public class JokeMapper implements MappingInterface<Joke, JokeDTO> {
 
     @Override
     public List<Joke> fromDtoListToEntityList(List<JokeDTO> jokeDTOS) {
-        if(jokeDTOS == null || jokeDTOS.isEmpty())
+        if (jokeDTOS == null || jokeDTOS.isEmpty())
             return null;
 
         List<Joke> jokeList = new ArrayList<>();

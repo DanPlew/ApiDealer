@@ -38,6 +38,7 @@ public class UserFacade implements UserUseCases<JokeDTO> {
 
     /**
      * Metoda pokazuje randomowy joke ze strony Chuck Noris Jokes. Użytkownik również musi podać parametr mówiący o tym, czy dany joke zapisać czy też nie.
+     *
      * @param save - Czy zapisać joke czy też nie.
      * @return JokeDT - Losowo wybrany joke ze strony.
      */
@@ -45,9 +46,9 @@ public class UserFacade implements UserUseCases<JokeDTO> {
     public JokeDTO showRandomJoke(boolean save) {
         JokeDTO jokeDTO = jokeService.getDataFromAnotherApi();
 
-        if(save){
+        if (save) {
             List<Category> categoryList = new ArrayList<>();
-            for(String categoryName : jokeDTO.getCategories())
+            for (String categoryName : jokeDTO.getCategories())
                 categoryList.add(categoryService.create(
                         categoryMapper.fromDtoToEntity(
                                 new CategoryDTO(null, categoryName)

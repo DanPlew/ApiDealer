@@ -1,10 +1,12 @@
 package daniel.plewinski.apidealer.chucknorisjokes.security;
 
 import daniel.plewinski.apidealer.chucknorisjokes.security.details.UserDetailsServiceImp;
+import daniel.plewinski.apidealer.chucknorisjokes.security.roles.UserRole;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.EnableGlobalAuthentication;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -42,6 +44,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .anyRequest().authenticated().and().logout().permitAll().and().formLogin().permitAll();
+                .antMatchers("/admin/**").hasAuthority(UserRole.ADMIN.name())
+                .antMatchers("/user/**").hasAnyAuthority(UserRole.USER.name())
+                .anyRequest().authenticated()
+                .and().formLogin().permitAll()
+                .and().logout().permitAll()
+                .and().cors()
+                .and().csrf().disable();
     }
 }

@@ -1,40 +1,38 @@
 package daniel.plewinski.apidealer.chucknorisjokes.web.controllers;
 
-import daniel.plewinski.apidealer.chucknorisjokes.logic.facades.UserFacade;
+import daniel.plewinski.apidealer.chucknorisjokes.logic.facades.interfaces.UserUseCases;
 import daniel.plewinski.apidealer.chucknorisjokes.web.models.JokeDTO;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController()
+@RestController
+@RequestMapping("user")
 public class UserController {
 
-    private final UserFacade userFacade;
+    private final UserUseCases<JokeDTO> userUseCases;
 
-    public UserController(UserFacade userFacade) {
-        this.userFacade = userFacade;
+    public UserController(UserUseCases userUseCases) {
+        this.userUseCases = userUseCases;
     }
 
     @GetMapping("/getRandomJoke/{save}")
-    public JokeDTO getRandomJoke(@PathVariable(name = "save") boolean save){
-        return userFacade.showRandomJoke(save);
+    public JokeDTO getRandomJoke(@PathVariable(name = "save") boolean save) {
+        return userUseCases.showRandomJoke(save);
     }
 
     @GetMapping("/getMyRandomJoke")
-    public JokeDTO getMyRandomJoke(){
-        return userFacade.showMyRandomJoke();
+    public JokeDTO getMyRandomJoke() {
+        return userUseCases.showMyRandomJoke();
     }
 
     @GetMapping("/getAllMyJokes")
-    public List<JokeDTO> getAllMyJokes(){
-        return userFacade.showAllMyJokes();
+    public List<JokeDTO> getAllMyJokes() {
+        return userUseCases.showAllMyJokes();
     }
 
     @DeleteMapping("/deleteJoke/{id}")
-    public void deleteMyJokeById(@PathVariable(name = "id") Long id){
-        userFacade.removeMyJoke(id);
+    public void deleteMyJokeById(@PathVariable(name = "id") Long id) {
+        userUseCases.removeMyJoke(id);
     }
 }
