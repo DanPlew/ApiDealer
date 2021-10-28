@@ -14,6 +14,7 @@ import daniel.plewinski.apidealer.chucknorisjokes.web.models.JokeDTO;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,7 @@ public class UserFacade implements UserUseCases<JokeDTO> {
      * @return JokeDT - Losowo wybrany joke ze strony.
      */
     @Override
-    public JokeDTO showRandomJoke(boolean save) {
+    public JokeDTO showRandomJoke(boolean save) throws HttpClientErrorException {
         JokeDTO jokeDTO = jokeService.getDataFromAnotherApi();
 
         if (save) {

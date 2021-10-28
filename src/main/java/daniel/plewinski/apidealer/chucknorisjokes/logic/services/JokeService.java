@@ -10,6 +10,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
@@ -34,11 +35,11 @@ public class JokeService implements CrudInterface<Joke>, ApiCommunicationInterfa
     }
 
     @Override
-    public JokeDTO getDataFromAnotherApi() {
+    public JokeDTO getDataFromAnotherApi() throws HttpClientErrorException {
         return restTemplate.getForObject(CHUCK_NORIS_RANDOM_JOKE_URL, JokeDTO.class);
     }
 
-    public JokeDTO getData()throws IOException {
+    public JokeDTO getData() throws IOException {
         OkHttpClient okHttpClient = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(CHUCK_NORIS_RANDOM_JOKE_URL)
@@ -51,11 +52,11 @@ public class JokeService implements CrudInterface<Joke>, ApiCommunicationInterfa
                 ).toString(), JokeDTO.class);
     }
 
-    public Joke getMyRandomJoke(){
+    public Joke getMyRandomJoke() {
         return jokeRepository.getRandomJoke().orElse(null);
     }
 
-    public List<Joke> getAllMyJokes(){
+    public List<Joke> getAllMyJokes() {
         return jokeRepository.findAll();
     }
 
@@ -65,7 +66,7 @@ public class JokeService implements CrudInterface<Joke>, ApiCommunicationInterfa
                 .getByJoke_id(joke.getJoke_id())
                 .orElse(null) != null;
 
-        if(isGivenJokeInDatabase)
+        if (isGivenJokeInDatabase)
             return update(joke.getId(), joke);
 
         return jokeRepository.save(joke);

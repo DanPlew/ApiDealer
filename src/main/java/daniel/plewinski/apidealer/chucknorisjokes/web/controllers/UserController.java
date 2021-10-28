@@ -3,6 +3,7 @@ package daniel.plewinski.apidealer.chucknorisjokes.web.controllers;
 import daniel.plewinski.apidealer.chucknorisjokes.logic.facades.interfaces.UserUseCases;
 import daniel.plewinski.apidealer.chucknorisjokes.web.models.JokeDTO;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class UserController {
     }
 
     @GetMapping("/getRandomJoke/{save}")
-    public JokeDTO getRandomJoke(@PathVariable(name = "save") boolean save) {
+    public JokeDTO getRandomJoke(@PathVariable(name = "save") boolean save) throws HttpClientErrorException {
         return userUseCases.showRandomJoke(save);
     }
 
