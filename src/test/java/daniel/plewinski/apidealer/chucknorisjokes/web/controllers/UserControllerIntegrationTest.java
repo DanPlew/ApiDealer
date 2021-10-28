@@ -1,19 +1,17 @@
 package daniel.plewinski.apidealer.chucknorisjokes.web.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import daniel.plewinski.apidealer.chucknorisjokes.security.roles.UserRole;
 import daniel.plewinski.apidealer.chucknorisjokes.web.models.JokeDTO;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -29,7 +27,7 @@ class UserControllerIntegrationTest {
 
     @Test
     @WithMockUser(username = "user", password = "qwerty", authorities = {"USER"})
-    void getRandomJoke_ShouldReturnRandomJokeFromAnotherApi_WhenUserPostFalseValue() throws Exception{
+    void getRandomJoke_ShouldReturnRandomJokeFromAnotherApi_WhenUserPostFalseValue() throws Exception {
         // given
         String save = "false";
 
@@ -50,7 +48,7 @@ class UserControllerIntegrationTest {
 
     @Test
     @WithMockUser(username = "user", password = "qwerty", authorities = {"USER"})
-    void getRandomJoke_ShouldReturnRandomJokeFromAnotherApiAndSaveIt_WhenUserPostTrueValue() throws Exception{
+    void getRandomJoke_ShouldReturnRandomJokeFromAnotherApiAndSaveIt_WhenUserPostTrueValue() throws Exception {
         // given
         String save = "true";
         Long expectingId = 1L;
@@ -72,7 +70,7 @@ class UserControllerIntegrationTest {
 
     @Test
     @WithMockUser(username = "admin", password = "qwerty", authorities = {"ADMIN"})
-    void getRandomJoke_ShouldReturnForbbidenStatus_WhenAdminPostUsesMethod() throws Exception{
+    void getRandomJoke_ShouldReturnForbbidenStatus_WhenAdminPostUsesMethod() throws Exception {
         // given
         String save = "false";
 
